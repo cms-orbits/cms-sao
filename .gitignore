@@ -1,8 +1,16 @@
-# Binaries for programs and plugins
+# Vendored Dependencies
+vendor
+
+# Binaries
+/cms-sao
+*.out
+*.o
 *.exe
-*.exe~
 
 # Tests
 *.test
-*.out
 reports
+
+# IDE's
+.vscode
+.idea
