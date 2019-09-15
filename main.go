@@ -107,7 +107,10 @@ func main() {
 	draftresultRepository := storage.NewDraftResultRepository(dbConn)
 	entrySubmitTrxRepository := storage.NewEntrySubmitTrxRepository(mongoDB)
 	draftSubmitTrxRepository := storage.NewDraftSubmitTrxRepository(mongoDB)
-	nesoQueue := storage.NewQueueWriter(mongoDB)
+
+	// Create Neso queue "repository"
+	nesoQueueName := up.GetStringOrDefault("neso.queue.name", "neso_queue")
+	nesoQueue := storage.NewQueueWriter(mongoDB, nesoQueueName)
 
 	// Mount "actions" controller
 	c := NewActionsController(service, entrySubmitTrxRepository, draftSubmitTrxRepository, nesoQueue)

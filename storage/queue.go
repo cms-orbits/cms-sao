@@ -9,13 +9,17 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-const queueName = "neso_queue"
+const defaultQueueName = "neso_queue"
 
 type QueueWriter interface {
 	Write(ctx context.Context, payload interface{}) error
 }
 
-func NewQueueWriter(db *mongo.Database) QueueWriter {
+func NewQueueWriter(db *mongo.Database, queueName string) QueueWriter {
+	if queueName == "" {
+		queueName = defaultQueueName
+	}
+
 	dbColl := &DocumentDBCollection{
 		coll: db.Collection(queueName),
 	}
