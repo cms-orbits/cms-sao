@@ -16,7 +16,8 @@ in order to have this application up and running you will need:
 
 1. CMS 1.3.x or greater (the current Sao version was designed against the last CMS revision in Jan 2018)
 2. CMS PostreSQL DB schema access (it could be the same credentials that CMS uses but is not recommended)
-3. Docker engine 17.x or greater
+3. MongoDB as temporal storage and message queue
+4. Docker engine 17.x or greater
 
 ### Deployment
 
@@ -65,6 +66,7 @@ documentsource.usernaname | cmsuser | MongoDB datasource username
 documentsource.password | | MongoDB datasource password
 documentsource.host | 127.0.0.1 | MongoDB host network address
 documentsource.port | 27017 | MongoDB port
+neso.queue.name | neso_queue | Neso worker queue name
 
 ## License
 

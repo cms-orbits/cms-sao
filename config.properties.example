@@ -20,3 +20,6 @@ documentsource.usernaname=cmsuser
 documentsource.password=you-should-not-add-this-to-git
 documentsource.host=127.0.0.1
 documentsource.port=27017
+
+# Neso Worker queue
+neso.queue.name=neso_queue

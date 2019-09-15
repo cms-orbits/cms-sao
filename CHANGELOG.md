@@ -2,6 +2,9 @@
 
 ## 0.5.0 (next)
 
+- Expose EntrySubmit and DraftSubmit transactional (monitor) resources.
+- Delegate to `cms-neso` the EntrySubmit process flow in CMS (as downstream dependency)
+- Delegate to `cms-neso` the EntryDraftSubmit process flow in CMS (as downstream dependency)
 - Enable tooling to generate code using vendor dependencies.
 
 ## 0.4.0
