@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.5.1
+
+- Only show relevant resource fields on successful `/submit-entry` and `/submit-draft` actions.
+- Update documentation and reply examples for aforementioned endpoints.
+
 ## 0.5.0
 
 - Expose EntrySubmit and DraftSubmit transactional (monitor) resources.

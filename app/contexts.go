@@ -230,8 +230,24 @@ func NewSubmitEntryActionsContext(ctx context.Context, r *http.Request, service 
 	return &rctx, err
 }
 
+// Created sends a HTTP response with status code 201.
+func (ctx *SubmitEntryActionsContext) Created(r *ComJossemargtSaoEntrySubmitTransaction) error {
+	if ctx.ResponseData.Header().Get("Content-Type") == "" {
+		ctx.ResponseData.Header().Set("Content-Type", "application/vnd.com.jossemargt.sao.entry-submit-transaction+json")
+	}
+	return ctx.ResponseData.Service.Send(ctx.Context, 201, r)
+}
+
 // CreatedFull sends a HTTP response with status code 201.
 func (ctx *SubmitEntryActionsContext) CreatedFull(r *ComJossemargtSaoEntrySubmitTransactionFull) error {
+	if ctx.ResponseData.Header().Get("Content-Type") == "" {
+		ctx.ResponseData.Header().Set("Content-Type", "application/vnd.com.jossemargt.sao.entry-submit-transaction+json")
+	}
+	return ctx.ResponseData.Service.Send(ctx.Context, 201, r)
+}
+
+// CreatedLink sends a HTTP response with status code 201.
+func (ctx *SubmitEntryActionsContext) CreatedLink(r *ComJossemargtSaoEntrySubmitTransactionLink) error {
 	if ctx.ResponseData.Header().Get("Content-Type") == "" {
 		ctx.ResponseData.Header().Set("Content-Type", "application/vnd.com.jossemargt.sao.entry-submit-transaction+json")
 	}
@@ -272,8 +288,24 @@ func NewSubmitEntryDraftActionsContext(ctx context.Context, r *http.Request, ser
 	return &rctx, err
 }
 
+// Created sends a HTTP response with status code 201.
+func (ctx *SubmitEntryDraftActionsContext) Created(r *ComJossemargtSaoDraftSubmitTransaction) error {
+	if ctx.ResponseData.Header().Get("Content-Type") == "" {
+		ctx.ResponseData.Header().Set("Content-Type", "application/vnd.com.jossemargt.sao.draft-submit-transaction+json")
+	}
+	return ctx.ResponseData.Service.Send(ctx.Context, 201, r)
+}
+
 // CreatedFull sends a HTTP response with status code 201.
 func (ctx *SubmitEntryDraftActionsContext) CreatedFull(r *ComJossemargtSaoDraftSubmitTransactionFull) error {
+	if ctx.ResponseData.Header().Get("Content-Type") == "" {
+		ctx.ResponseData.Header().Set("Content-Type", "application/vnd.com.jossemargt.sao.draft-submit-transaction+json")
+	}
+	return ctx.ResponseData.Service.Send(ctx.Context, 201, r)
+}
+
+// CreatedLink sends a HTTP response with status code 201.
+func (ctx *SubmitEntryDraftActionsContext) CreatedLink(r *ComJossemargtSaoDraftSubmitTransactionLink) error {
 	if ctx.ResponseData.Header().Get("Content-Type") == "" {
 		ctx.ResponseData.Header().Set("Content-Type", "application/vnd.com.jossemargt.sao.draft-submit-transaction+json")
 	}
@@ -299,13 +331,6 @@ type SummarizeScoreActionsContext struct {
 	context.Context
 	*goa.ResponseData
 	*goa.RequestData
-	Contest  *int
-	GroupBy  string
-	Page     int
-	PageSize int
-	Sort     string
-	Task     *int
-	User     *int
 }
 
 // NewSummarizeScoreActionsContext parses the incoming request URL and body, performs validations and creates the
@@ -317,114 +342,7 @@ func NewSummarizeScoreActionsContext(ctx context.Context, r *http.Request, servi
 	req := goa.ContextRequest(ctx)
 	req.Request = r
 	rctx := SummarizeScoreActionsContext{Context: ctx, ResponseData: resp, RequestData: req}
-	paramContest := req.Params["contest"]
-	if len(paramContest) > 0 {
-		rawContest := paramContest[0]
-		if contest, err2 := strconv.Atoi(rawContest); err2 == nil {
-			tmp6 := contest
-			tmp5 := &tmp6
-			rctx.Contest = tmp5
-		} else {
-			err = goa.MergeErrors(err, goa.InvalidParamTypeError("contest", rawContest, "integer"))
-		}
-		if rctx.Contest != nil {
-			if *rctx.Contest < 0 {
-				err = goa.MergeErrors(err, goa.InvalidRangeError(`contest`, *rctx.Contest, 0, true))
-			}
-		}
-	}
-	paramGroupBy := req.Params["groupBy"]
-	if len(paramGroupBy) == 0 {
-		rctx.GroupBy = "none"
-	} else {
-		rawGroupBy := paramGroupBy[0]
-		rctx.GroupBy = rawGroupBy
-		if !(rctx.GroupBy == "contest" || rctx.GroupBy == "task" || rctx.GroupBy == "user" || rctx.GroupBy == "none") {
-			err = goa.MergeErrors(err, goa.InvalidEnumValueError(`groupBy`, rctx.GroupBy, []interface{}{"contest", "task", "user", "none"}))
-		}
-	}
-	paramPage := req.Params["page"]
-	if len(paramPage) == 0 {
-		rctx.Page = 1
-	} else {
-		rawPage := paramPage[0]
-		if page, err2 := strconv.Atoi(rawPage); err2 == nil {
-			rctx.Page = page
-		} else {
-			err = goa.MergeErrors(err, goa.InvalidParamTypeError("page", rawPage, "integer"))
-		}
-		if rctx.Page < 1 {
-			err = goa.MergeErrors(err, goa.InvalidRangeError(`page`, rctx.Page, 1, true))
-		}
-	}
-	paramPageSize := req.Params["page_size"]
-	if len(paramPageSize) == 0 {
-		rctx.PageSize = 20
-	} else {
-		rawPageSize := paramPageSize[0]
-		if pageSize, err2 := strconv.Atoi(rawPageSize); err2 == nil {
-			rctx.PageSize = pageSize
-		} else {
-			err = goa.MergeErrors(err, goa.InvalidParamTypeError("page_size", rawPageSize, "integer"))
-		}
-		if rctx.PageSize < 5 {
-			err = goa.MergeErrors(err, goa.InvalidRangeError(`page_size`, rctx.PageSize, 5, true))
-		}
-	}
-	paramSort := req.Params["sort"]
-	if len(paramSort) == 0 {
-		rctx.Sort = "desc"
-	} else {
-		rawSort := paramSort[0]
-		rctx.Sort = rawSort
-		if !(rctx.Sort == "asc" || rctx.Sort == "desc") {
-			err = goa.MergeErrors(err, goa.InvalidEnumValueError(`sort`, rctx.Sort, []interface{}{"asc", "desc"}))
-		}
-	}
-	paramTask := req.Params["task"]
-	if len(paramTask) > 0 {
-		rawTask := paramTask[0]
-		if task, err2 := strconv.Atoi(rawTask); err2 == nil {
-			tmp10 := task
-			tmp9 := &tmp10
-			rctx.Task = tmp9
-		} else {
-			err = goa.MergeErrors(err, goa.InvalidParamTypeError("task", rawTask, "integer"))
-		}
-		if rctx.Task != nil {
-			if *rctx.Task < 0 {
-				err = goa.MergeErrors(err, goa.InvalidRangeError(`task`, *rctx.Task, 0, true))
-			}
-		}
-	}
-	paramUser := req.Params["user"]
-	if len(paramUser) > 0 {
-		rawUser := paramUser[0]
-		if user, err2 := strconv.Atoi(rawUser); err2 == nil {
-			tmp12 := user
-			tmp11 := &tmp12
-			rctx.User = tmp11
-		} else {
-			err = goa.MergeErrors(err, goa.InvalidParamTypeError("user", rawUser, "integer"))
-		}
-		if rctx.User != nil {
-			if *rctx.User < 0 {
-				err = goa.MergeErrors(err, goa.InvalidRangeError(`user`, *rctx.User, 0, true))
-			}
-		}
-	}
 	return &rctx, err
-}
-
-// OK sends a HTTP response with status code 200.
-func (ctx *SummarizeScoreActionsContext) OK(r ComJossemargtSaoScoreSumCollection) error {
-	if ctx.ResponseData.Header().Get("Content-Type") == "" {
-		ctx.ResponseData.Header().Set("Content-Type", "application/vnd.com.jossemargt.sao.score-sum+json; type=collection")
-	}
-	if r == nil {
-		r = ComJossemargtSaoScoreSumCollection{}
-	}
-	return ctx.ResponseData.Service.Send(ctx.Context, 200, r)
 }
 
 // BadRequest sends a HTTP response with status code 400.
@@ -433,12 +351,6 @@ func (ctx *SummarizeScoreActionsContext) BadRequest(r error) error {
 		ctx.ResponseData.Header().Set("Content-Type", "application/vnd.goa.error")
 	}
 	return ctx.ResponseData.Service.Send(ctx.Context, 400, r)
-}
-
-// NotFound sends a HTTP response with status code 404.
-func (ctx *SummarizeScoreActionsContext) NotFound() error {
-	ctx.ResponseData.WriteHeader(404)
-	return nil
 }
 
 // NotImplemented sends a HTTP response with status code 501.

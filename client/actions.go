@@ -13,7 +13,6 @@ import (
 	"fmt"
 	"net/http"
 	"net/url"
-	"strconv"
 )
 
 // SubmitEntryActionsPath computes a request path to the submitEntry action of actions.
@@ -109,8 +108,8 @@ func SummarizeScoreActionsPath() string {
 }
 
 // List scores and its total grouped and filter by contest, task or user
-func (c *Client) SummarizeScoreActions(ctx context.Context, path string, contest *int, groupBy *string, page *int, pageSize *int, sort *string, task *int, user *int) (*http.Response, error) {
-	req, err := c.NewSummarizeScoreActionsRequest(ctx, path, contest, groupBy, page, pageSize, sort, task, user)
+func (c *Client) SummarizeScoreActions(ctx context.Context, path string) (*http.Response, error) {
+	req, err := c.NewSummarizeScoreActionsRequest(ctx, path)
 	if err != nil {
 		return nil, err
 	}
@@ -118,40 +117,12 @@ func (c *Client) SummarizeScoreActions(ctx context.Context, path string, contest
 }
 
 // NewSummarizeScoreActionsRequest create the request corresponding to the summarizeScore action endpoint of the actions resource.
-func (c *Client) NewSummarizeScoreActionsRequest(ctx context.Context, path string, contest *int, groupBy *string, page *int, pageSize *int, sort *string, task *int, user *int) (*http.Request, error) {
+func (c *Client) NewSummarizeScoreActionsRequest(ctx context.Context, path string) (*http.Request, error) {
 	scheme := c.Scheme
 	if scheme == "" {
 		scheme = "http"
 	}
 	u := url.URL{Host: c.Host, Scheme: scheme, Path: path}
-	values := u.Query()
-	if contest != nil {
-		tmp40 := strconv.Itoa(*contest)
-		values.Set("contest", tmp40)
-	}
-	if groupBy != nil {
-		values.Set("groupBy", *groupBy)
-	}
-	if page != nil {
-		tmp41 := strconv.Itoa(*page)
-		values.Set("page", tmp41)
-	}
-	if pageSize != nil {
-		tmp42 := strconv.Itoa(*pageSize)
-		values.Set("page_size", tmp42)
-	}
-	if sort != nil {
-		values.Set("sort", *sort)
-	}
-	if task != nil {
-		tmp43 := strconv.Itoa(*task)
-		values.Set("task", tmp43)
-	}
-	if user != nil {
-		tmp44 := strconv.Itoa(*user)
-		values.Set("user", tmp44)
-	}
-	u.RawQuery = values.Encode()
 	req, err := http.NewRequest("GET", u.String(), nil)
 	if err != nil {
 		return nil, err

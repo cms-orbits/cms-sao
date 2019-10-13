@@ -69,41 +69,41 @@ func (c *Client) NewShowResultRequest(ctx context.Context, path string, contest 
 	u := url.URL{Host: c.Host, Scheme: scheme, Path: path}
 	values := u.Query()
 	if contest != nil {
-		tmp61 := strconv.Itoa(*contest)
-		values.Set("contest", tmp61)
+		tmp48 := strconv.Itoa(*contest)
+		values.Set("contest", tmp48)
 	}
 	if contestSlug != nil {
 		values.Set("contest_slug", *contestSlug)
 	}
 	if entry != nil {
-		tmp62 := strconv.Itoa(*entry)
-		values.Set("entry", tmp62)
+		tmp49 := strconv.Itoa(*entry)
+		values.Set("entry", tmp49)
 	}
 	if max != nil {
-		tmp63 := strconv.FormatBool(*max)
-		values.Set("max", tmp63)
+		tmp50 := strconv.FormatBool(*max)
+		values.Set("max", tmp50)
 	}
 	if page != nil {
-		tmp64 := strconv.Itoa(*page)
-		values.Set("page", tmp64)
+		tmp51 := strconv.Itoa(*page)
+		values.Set("page", tmp51)
 	}
 	if pageSize != nil {
-		tmp65 := strconv.Itoa(*pageSize)
-		values.Set("page_size", tmp65)
+		tmp52 := strconv.Itoa(*pageSize)
+		values.Set("page_size", tmp52)
 	}
 	if sort != nil {
 		values.Set("sort", *sort)
 	}
 	if task != nil {
-		tmp66 := strconv.Itoa(*task)
-		values.Set("task", tmp66)
+		tmp53 := strconv.Itoa(*task)
+		values.Set("task", tmp53)
 	}
 	if taskSlug != nil {
 		values.Set("task_slug", *taskSlug)
 	}
 	if user != nil {
-		tmp67 := strconv.Itoa(*user)
-		values.Set("user", tmp67)
+		tmp54 := strconv.Itoa(*user)
+		values.Set("user", tmp54)
 	}
 	if view != nil {
 		values.Set("view", *view)

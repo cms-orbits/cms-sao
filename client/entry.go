@@ -69,33 +69,33 @@ func (c *Client) NewShowEntryRequest(ctx context.Context, path string, contest *
 	u := url.URL{Host: c.Host, Scheme: scheme, Path: path}
 	values := u.Query()
 	if contest != nil {
-		tmp56 := strconv.Itoa(*contest)
-		values.Set("contest", tmp56)
+		tmp43 := strconv.Itoa(*contest)
+		values.Set("contest", tmp43)
 	}
 	if contestSlug != nil {
 		values.Set("contest_slug", *contestSlug)
 	}
 	if page != nil {
-		tmp57 := strconv.Itoa(*page)
-		values.Set("page", tmp57)
+		tmp44 := strconv.Itoa(*page)
+		values.Set("page", tmp44)
 	}
 	if pageSize != nil {
-		tmp58 := strconv.Itoa(*pageSize)
-		values.Set("page_size", tmp58)
+		tmp45 := strconv.Itoa(*pageSize)
+		values.Set("page_size", tmp45)
 	}
 	if sort != nil {
 		values.Set("sort", *sort)
 	}
 	if task != nil {
-		tmp59 := strconv.Itoa(*task)
-		values.Set("task", tmp59)
+		tmp46 := strconv.Itoa(*task)
+		values.Set("task", tmp46)
 	}
 	if taskSlug != nil {
 		values.Set("task_slug", *taskSlug)
 	}
 	if user != nil {
-		tmp60 := strconv.Itoa(*user)
-		values.Set("user", tmp60)
+		tmp47 := strconv.Itoa(*user)
+		values.Set("user", tmp47)
 	}
 	u.RawQuery = values.Encode()
 	req, err := http.NewRequest("GET", u.String(), nil)

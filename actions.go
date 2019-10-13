@@ -155,11 +155,5 @@ func sourceToModel(sources []*app.EntrySource) []*model.EntrySource {
 
 // SummarizeScore runs the summarizeScore action.
 func (c *ActionsController) SummarizeScore(ctx *app.SummarizeScoreActionsContext) error {
-	// ActionsController_SummarizeScore: start_implement
-
-	// Put your logic here
-
-	res := app.ComJossemargtSaoScoreSumCollection{}
-	return ctx.OK(res)
-	// ActionsController_SummarizeScore: end_implement
+	return ctx.NotImplemented()
 }

@@ -280,6 +280,9 @@ func (mt *ComJossemargtSaoDraftSubmitTransaction) Validate() (err error) {
 	if mt.Status == "" {
 		err = goa.MergeErrors(err, goa.MissingAttributeError(`response`, "status"))
 	}
+	if !(mt.Status == "unprocessed" || mt.Status == "submitted" || mt.Status == "failed" || mt.Status == "evaluated") {
+		err = goa.MergeErrors(err, goa.InvalidEnumValueError(`response.status`, mt.Status, []interface{}{"unprocessed", "submitted", "failed", "evaluated"}))
+	}
 	return
 }
 
@@ -316,6 +319,9 @@ func (mt *ComJossemargtSaoDraftSubmitTransactionFull) Validate() (err error) {
 			err = goa.MergeErrors(err, err2)
 		}
 	}
+	if !(mt.Status == "unprocessed" || mt.Status == "submitted" || mt.Status == "failed" || mt.Status == "evaluated") {
+		err = goa.MergeErrors(err, goa.InvalidEnumValueError(`response.status`, mt.Status, []interface{}{"unprocessed", "submitted", "failed", "evaluated"}))
+	}
 	return
 }
 
@@ -342,19 +348,13 @@ func (mt *ComJossemargtSaoDraftSubmitTransactionLink) Validate() (err error) {
 
 // ComJossemargtSaoDraft-Submit-TransactionLinks contains links to related resources of ComJossemargtSaoDraft-Submit-Transaction.
 type ComJossemargtSaoDraftSubmitTransactionLinks struct {
-	Draft  *ComJossemargtSaoDraftLink       `form:"draft,omitempty" json:"draft,omitempty" yaml:"draft,omitempty" xml:"draft,omitempty"`
-	Result *ComJossemargtSaoDraftResultLink `form:"result,omitempty" json:"result,omitempty" yaml:"result,omitempty" xml:"result,omitempty"`
+	Draft *ComJossemargtSaoDraftLink `form:"draft,omitempty" json:"draft,omitempty" yaml:"draft,omitempty" xml:"draft,omitempty"`
 }
 
 // Validate validates the ComJossemargtSaoDraftSubmitTransactionLinks type instance.
 func (ut *ComJossemargtSaoDraftSubmitTransactionLinks) Validate() (err error) {
 	if ut.Draft != nil {
 		if err2 := ut.Draft.Validate(); err2 != nil {
-			err = goa.MergeErrors(err, err2)
-		}
-	}
-	if ut.Result != nil {
-		if err2 := ut.Result.Validate(); err2 != nil {
 			err = goa.MergeErrors(err, err2)
 		}
 	}
@@ -563,6 +563,9 @@ func (mt *ComJossemargtSaoEntrySubmitTransaction) Validate() (err error) {
 	if mt.Status == "" {
 		err = goa.MergeErrors(err, goa.MissingAttributeError(`response`, "status"))
 	}
+	if !(mt.Status == "unprocessed" || mt.Status == "submitted" || mt.Status == "failed" || mt.Status == "evaluated") {
+		err = goa.MergeErrors(err, goa.InvalidEnumValueError(`response.status`, mt.Status, []interface{}{"unprocessed", "submitted", "failed", "evaluated"}))
+	}
 	return
 }
 
@@ -599,6 +602,9 @@ func (mt *ComJossemargtSaoEntrySubmitTransactionFull) Validate() (err error) {
 			err = goa.MergeErrors(err, err2)
 		}
 	}
+	if !(mt.Status == "unprocessed" || mt.Status == "submitted" || mt.Status == "failed" || mt.Status == "evaluated") {
+		err = goa.MergeErrors(err, goa.InvalidEnumValueError(`response.status`, mt.Status, []interface{}{"unprocessed", "submitted", "failed", "evaluated"}))
+	}
 	return
 }
 
@@ -625,19 +631,13 @@ func (mt *ComJossemargtSaoEntrySubmitTransactionLink) Validate() (err error) {
 
 // ComJossemargtSaoEntry-Submit-TransactionLinks contains links to related resources of ComJossemargtSaoEntry-Submit-Transaction.
 type ComJossemargtSaoEntrySubmitTransactionLinks struct {
-	Entry  *ComJossemargtSaoEntryLink  `form:"entry,omitempty" json:"entry,omitempty" yaml:"entry,omitempty" xml:"entry,omitempty"`
-	Result *ComJossemargtSaoResultLink `form:"result,omitempty" json:"result,omitempty" yaml:"result,omitempty" xml:"result,omitempty"`
+	Entry *ComJossemargtSaoEntryLink `form:"entry,omitempty" json:"entry,omitempty" yaml:"entry,omitempty" xml:"entry,omitempty"`
 }
 
 // Validate validates the ComJossemargtSaoEntrySubmitTransactionLinks type instance.
 func (ut *ComJossemargtSaoEntrySubmitTransactionLinks) Validate() (err error) {
 	if ut.Entry != nil {
 		if err2 := ut.Entry.Validate(); err2 != nil {
-			err = goa.MergeErrors(err, err2)
-		}
-	}
-	if ut.Result != nil {
-		if err2 := ut.Result.Validate(); err2 != nil {
 			err = goa.MergeErrors(err, err2)
 		}
 	}
@@ -887,23 +887,6 @@ func (mt *ComJossemargtSaoScoreSum) Validate() (err error) {
 	if mt.UserID != nil {
 		if *mt.UserID < 1 {
 			err = goa.MergeErrors(err, goa.InvalidRangeError(`response.userID`, *mt.UserID, 1, true))
-		}
-	}
-	return
-}
-
-// ComJossemargtSaoScore-SumCollection is the media type for an array of ComJossemargtSaoScore-Sum (default view)
-//
-// Identifier: application/vnd.com.jossemargt.sao.score-sum+json; type=collection; view=default
-type ComJossemargtSaoScoreSumCollection []*ComJossemargtSaoScoreSum
-
-// Validate validates the ComJossemargtSaoScoreSumCollection media type instance.
-func (mt ComJossemargtSaoScoreSumCollection) Validate() (err error) {
-	for _, e := range mt {
-		if e != nil {
-			if err2 := e.Validate(); err2 != nil {
-				err = goa.MergeErrors(err, err2)
-			}
 		}
 	}
 	return

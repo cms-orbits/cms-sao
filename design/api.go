@@ -322,7 +322,7 @@ var _ = Resource("actions", func() {
 		Payload(EntryPayload)
 
 		Response(Created, func() {
-			Media(EntrySubmitTrx, "full")
+			Media(EntrySubmitTrx)
 			Headers(func() {
 				Header("Location", String, "href to created entry", func() {
 					Pattern("/entry-submit-transaction/\\d+")
@@ -338,7 +338,7 @@ var _ = Resource("actions", func() {
 		Payload(EntryPayload)
 
 		Response(Created, func() {
-			Media(DraftSubmitTrx, "full")
+			Media(DraftSubmitTrx)
 			Headers(func() {
 				Header("Location", String, "href to created entry", func() {
 					Pattern("/draft-submit-transaction/\\d+")
@@ -352,34 +352,6 @@ var _ = Resource("actions", func() {
 		//TODO: Temporal "score board" resources should replace this action endpoint
 		Description("List scores and its total grouped and filter by contest, task or user")
 		Routing(GET("/summarize-score"))
-		Params(func() {
-			Param("contest", Integer, "Contest ID", func() {
-				Minimum(0)
-			})
-			Param("task", Integer, "Task ID", func() {
-				Minimum(0)
-			})
-			Param("user", Integer, "User ID", func() {
-				Minimum(0)
-			})
-			Param("groupBy", String, "", func() {
-				Enum("contest", "task", "user", "none")
-				Default("none")
-			})
-			Param("sort", String, "Sorting order based on score value", func() {
-				Enum("asc", "desc")
-				Default("desc")
-			})
-			Param("page", Integer, "Page number", func() {
-				Default(1)
-				Minimum(1)
-			})
-			Param("page_size", Integer, "Item amount per page", func() {
-				Default(20)
-				Minimum(5)
-			})
-		})
-		Response(OK, CollectionOf(ScoreSumMedia))
-		Response(NotFound)
+		Response(NotImplemented)
 	})
 })

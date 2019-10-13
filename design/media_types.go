@@ -5,6 +5,13 @@ import (
 	. "github.com/goadesign/goa/design/apidsl"
 )
 
+const (
+	cmsAsyncUnprocessed = "unprocessed"
+	cmsAsyncSubmitted   = "submitted"
+	cmsAsyncFailed      = "failed"
+	cmsAsyncEvaluated   = "evaluated"
+)
+
 var EntryMedia = MediaType("application/vnd.com.jossemargt.sao.entry+json", func() {
 	Description("Any source code or input to be compiled, executed and evaluated")
 	Reference(AbstractEntry)
@@ -200,7 +207,7 @@ var AbstractEntrySubmitTrx = Type("AbstractEntrySubmitTrx", func() {
 	Attribute("createdAt", DateTime, "Transaction creation timestamp")
 	Attribute("updatedAt", DateTime, "Transaction last update timestamp")
 	Attribute("status", String, "", func() {
-		// TODO: Define Entry Trx States
+		Enum(cmsAsyncUnprocessed, cmsAsyncSubmitted, cmsAsyncFailed, cmsAsyncEvaluated)
 		Default(cmsAsyncUnprocessed)
 	})
 })
@@ -221,14 +228,12 @@ var EntrySubmitTrx = MediaType("application/vnd.com.jossemargt.sao.entry-submit-
 		Attribute("status")
 
 		Attribute("entry", EntryMedia, "The entry being processed on this transaction")
-		Attribute("result", ResultMedia, "The entry processing result")
 
 		Required("id", "href", "status")
 	})
 
 	Links(func() {
 		Link("entry", "link")
-		Link("result", "link")
 	})
 
 	View("link", func() {
@@ -268,14 +273,12 @@ var DraftSubmitTrx = MediaType("application/vnd.com.jossemargt.sao.draft-submit-
 		Attribute("status")
 
 		Attribute("draft", DraftMedia, "The entry draft being processed on this transaction")
-		Attribute("result", DraftResultMedia, "The entry draft processing result")
 
 		Required("id", "href", "status")
 	})
 
 	Links(func() {
 		Link("draft", "link")
-		Link("result", "link")
 	})
 
 	View("link", func() {

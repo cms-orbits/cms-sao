@@ -35,25 +35,32 @@ var SourceType = Type("EntrySource", func() {
 	Attribute("filename", String,
 		`Source file name including its extension. This field's value should comply with the name format (fileid) 
 		constraint declared by the Task resource. Taking the "batch.%l" format as example, the valid source code file 
-		names could be "batch.py", "batch.cpp" or "batch.js"`,
-		func() {
+		names could be "batch.py", "batch.cpp" or "batch.js"`, func() {
 			Example("my_solution.py")
 			Default("")
 		})
 	Attribute("fileid", String,
 		`Also known as filepattern, and is expected to be sent along with the filename. This field is defined by the 
-		Task resource`,
-		func() {
+		Task resource`, func() {
 			Example("my_solution.%l")
 			Example("batch.cpp")
 			Default("")
 		})
 	Attribute("content", String, "Source content", func() {
 		Default("")
+		Example(`#include <stdio.h>
+int main() {
+    int a, b;
+    scanf("%d %d", &a, &b);
+    printf("%d\\n", a+b);
+    return 0;
+}`)
+		Example("1 2")
 	})
 	Attribute("language", String,
-		`Identifies the programming language used in the entry's content. This attribute can be ommited for "plain text" files`,
+		`Identifies the programming language used in the entry's content. This attribute can be omitted for "plain text" files`,
 		func() {
+			Example("C++11 / g++")
 			Example("Python 3")
 			Default("")
 		})
