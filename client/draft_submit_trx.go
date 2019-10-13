@@ -40,8 +40,8 @@ func (c *Client) NewGetDraftSubmitTrxRequest(ctx context.Context, path string, t
 	u := url.URL{Host: c.Host, Scheme: scheme, Path: path}
 	values := u.Query()
 	if trxD != nil {
-		tmp38 := strconv.Itoa(*trxD)
-		values.Set("trxD", tmp38)
+		tmp30 := strconv.Itoa(*trxD)
+		values.Set("trxD", tmp30)
 	}
 	u.RawQuery = values.Encode()
 	req, err := http.NewRequest("GET", u.String(), nil)

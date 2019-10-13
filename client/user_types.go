@@ -121,6 +121,16 @@ func (ut *abstractEntrySubmitTrx) Finalize() {
 	}
 }
 
+// Validate validates the abstractEntrySubmitTrx type instance.
+func (ut *abstractEntrySubmitTrx) Validate() (err error) {
+	if ut.Status != nil {
+		if !(*ut.Status == "unprocessed" || *ut.Status == "submitted" || *ut.Status == "failed" || *ut.Status == "evaluated") {
+			err = goa.MergeErrors(err, goa.InvalidEnumValueError(`request.status`, *ut.Status, []interface{}{"unprocessed", "submitted", "failed", "evaluated"}))
+		}
+	}
+	return
+}
+
 // Publicize creates AbstractEntrySubmitTrx from abstractEntrySubmitTrx
 func (ut *abstractEntrySubmitTrx) Publicize() *AbstractEntrySubmitTrx {
 	var pub AbstractEntrySubmitTrx
@@ -145,7 +155,16 @@ type AbstractEntrySubmitTrx struct {
 	UpdatedAt *time.Time `form:"updatedAt,omitempty" json:"updatedAt,omitempty" yaml:"updatedAt,omitempty" xml:"updatedAt,omitempty"`
 }
 
-// Embedded representation of an entry compilation result
+// Validate validates the AbstractEntrySubmitTrx type instance.
+func (ut *AbstractEntrySubmitTrx) Validate() (err error) {
+	if !(ut.Status == "unprocessed" || ut.Status == "submitted" || ut.Status == "failed" || ut.Status == "evaluated") {
+		err = goa.MergeErrors(err, goa.InvalidEnumValueError(`type.status`, ut.Status, []interface{}{"unprocessed", "submitted", "failed", "evaluated"}))
+	}
+	return
+}
+
+// Embedded representation of an entry compilation result. It can be unprocessed when compilation
+// is pending, otherwise it should be either ok or fail.
 type compilationResult struct {
 	// Memory consumed
 	Memory *int `form:"memory,omitempty" json:"memory,omitempty" yaml:"memory,omitempty" xml:"memory,omitempty"`
@@ -232,7 +251,8 @@ func (ut *compilationResult) Publicize() *CompilationResult {
 	return &pub
 }
 
-// Embedded representation of an entry compilation result
+// Embedded representation of an entry compilation result. It can be unprocessed when compilation
+// is pending, otherwise it should be either ok or fail.
 type CompilationResult struct {
 	// Memory consumed
 	Memory int `form:"memory" json:"memory" yaml:"memory" xml:"memory"`
@@ -406,7 +426,7 @@ type entrySource struct {
 	// 		constraint declared by the Task resource. Taking the "batch.%l" format as example, the valid source code file
 	// 		names could be "batch.py", "batch.cpp" or "batch.js"
 	Filename *string `form:"filename,omitempty" json:"filename,omitempty" yaml:"filename,omitempty" xml:"filename,omitempty"`
-	// Identifies the programming language used in the entry's content. This attribute can be ommited for "plain text" files
+	// Identifies the programming language used in the entry's content. This attribute can be omitted for "plain text" files
 	Language *string `form:"language,omitempty" json:"language,omitempty" yaml:"language,omitempty" xml:"language,omitempty"`
 }
 
@@ -459,13 +479,13 @@ type EntrySource struct {
 	// 		constraint declared by the Task resource. Taking the "batch.%l" format as example, the valid source code file
 	// 		names could be "batch.py", "batch.cpp" or "batch.js"
 	Filename string `form:"filename" json:"filename" yaml:"filename" xml:"filename"`
-	// Identifies the programming language used in the entry's content. This attribute can be ommited for "plain text" files
+	// Identifies the programming language used in the entry's content. This attribute can be omitted for "plain text" files
 	Language string `form:"language" json:"language" yaml:"language" xml:"language"`
 }
 
 // Embedded representation of an entry evaluation result
 type evaluationResult struct {
-	// Execution result status
+	// Execution result status. It only indicates if the result has been evaluated or not
 	Status *string `form:"status,omitempty" json:"status,omitempty" yaml:"status,omitempty" xml:"status,omitempty"`
 	// Evaluation retries
 	Tries *int `form:"tries,omitempty" json:"tries,omitempty" yaml:"tries,omitempty" xml:"tries,omitempty"`
@@ -512,7 +532,7 @@ func (ut *evaluationResult) Publicize() *EvaluationResult {
 
 // Embedded representation of an entry evaluation result
 type EvaluationResult struct {
-	// Execution result status
+	// Execution result status. It only indicates if the result has been evaluated or not
 	Status string `form:"status" json:"status" yaml:"status" xml:"status"`
 	// Evaluation retries
 	Tries int `form:"tries" json:"tries" yaml:"tries" xml:"tries"`
@@ -595,7 +615,7 @@ type ExecutionResult struct {
 type scoreResult struct {
 	// The graded value relative to the Contest score
 	ContestValue *float64 `form:"contestValue,omitempty" json:"contestValue,omitempty" yaml:"contestValue,omitempty" xml:"contestValue,omitempty"`
-	// The graded value relative to the Task score
+	// The graded value relative to the Task score (percent of successful runs against task's  dataset)
 	TaskValue *float64 `form:"taskValue,omitempty" json:"taskValue,omitempty" yaml:"taskValue,omitempty" xml:"taskValue,omitempty"`
 }
 
@@ -627,6 +647,6 @@ func (ut *scoreResult) Publicize() *ScoreResult {
 type ScoreResult struct {
 	// The graded value relative to the Contest score
 	ContestValue float64 `form:"contestValue" json:"contestValue" yaml:"contestValue" xml:"contestValue"`
-	// The graded value relative to the Task score
+	// The graded value relative to the Task score (percent of successful runs against task's  dataset)
 	TaskValue float64 `form:"taskValue" json:"taskValue" yaml:"taskValue" xml:"taskValue"`
 }

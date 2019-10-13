@@ -69,37 +69,37 @@ func (c *Client) NewShowDraftresultRequest(ctx context.Context, path string, con
 	u := url.URL{Host: c.Host, Scheme: scheme, Path: path}
 	values := u.Query()
 	if contest != nil {
-		tmp50 := strconv.Itoa(*contest)
-		values.Set("contest", tmp50)
+		tmp37 := strconv.Itoa(*contest)
+		values.Set("contest", tmp37)
 	}
 	if contestSlug != nil {
 		values.Set("contest_slug", *contestSlug)
 	}
 	if entry != nil {
-		tmp51 := strconv.Itoa(*entry)
-		values.Set("entry", tmp51)
+		tmp38 := strconv.Itoa(*entry)
+		values.Set("entry", tmp38)
 	}
 	if page != nil {
-		tmp52 := strconv.Itoa(*page)
-		values.Set("page", tmp52)
+		tmp39 := strconv.Itoa(*page)
+		values.Set("page", tmp39)
 	}
 	if pageSize != nil {
-		tmp53 := strconv.Itoa(*pageSize)
-		values.Set("page_size", tmp53)
+		tmp40 := strconv.Itoa(*pageSize)
+		values.Set("page_size", tmp40)
 	}
 	if sort != nil {
 		values.Set("sort", *sort)
 	}
 	if task != nil {
-		tmp54 := strconv.Itoa(*task)
-		values.Set("task", tmp54)
+		tmp41 := strconv.Itoa(*task)
+		values.Set("task", tmp41)
 	}
 	if taskSlug != nil {
 		values.Set("task_slug", *taskSlug)
 	}
 	if user != nil {
-		tmp55 := strconv.Itoa(*user)
-		values.Set("user", tmp55)
+		tmp42 := strconv.Itoa(*user)
+		values.Set("user", tmp42)
 	}
 	u.RawQuery = values.Encode()
 	req, err := http.NewRequest("GET", u.String(), nil)

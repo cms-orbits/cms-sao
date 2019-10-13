@@ -44,16 +44,7 @@ func (c *EntrySubmitTrxController) Get(ctx *app.GetEntrySubmitTrxContext) error 
 			ID:   entryTrx.EntryID,
 			Href: fmt.Sprintf("%s%d", app.EntryHref(), entryTrx.EntryID),
 		}
-	}
-
-	if entryTrx.ResultID != "" {
-		res.Links.Result = &app.ComJossemargtSaoResultLink{
-			ID:   entryTrx.ResultID,
-			Href: fmt.Sprintf("%s%s", app.ResultHref(), entryTrx.ResultID),
-		}
-	}
-
-	if entryTrx.EntryID == 0 && entryTrx.ResultID == "" {
+	} else {
 		res.Links = nil
 	}
 

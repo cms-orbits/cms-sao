@@ -69,33 +69,33 @@ func (c *Client) NewShowDraftRequest(ctx context.Context, path string, contest *
 	u := url.URL{Host: c.Host, Scheme: scheme, Path: path}
 	values := u.Query()
 	if contest != nil {
-		tmp45 := strconv.Itoa(*contest)
-		values.Set("contest", tmp45)
+		tmp32 := strconv.Itoa(*contest)
+		values.Set("contest", tmp32)
 	}
 	if contestSlug != nil {
 		values.Set("contest_slug", *contestSlug)
 	}
 	if page != nil {
-		tmp46 := strconv.Itoa(*page)
-		values.Set("page", tmp46)
+		tmp33 := strconv.Itoa(*page)
+		values.Set("page", tmp33)
 	}
 	if pageSize != nil {
-		tmp47 := strconv.Itoa(*pageSize)
-		values.Set("page_size", tmp47)
+		tmp34 := strconv.Itoa(*pageSize)
+		values.Set("page_size", tmp34)
 	}
 	if sort != nil {
 		values.Set("sort", *sort)
 	}
 	if task != nil {
-		tmp48 := strconv.Itoa(*task)
-		values.Set("task", tmp48)
+		tmp35 := strconv.Itoa(*task)
+		values.Set("task", tmp35)
 	}
 	if taskSlug != nil {
 		values.Set("task_slug", *taskSlug)
 	}
 	if user != nil {
-		tmp49 := strconv.Itoa(*user)
-		values.Set("user", tmp49)
+		tmp36 := strconv.Itoa(*user)
+		values.Set("user", tmp36)
 	}
 	u.RawQuery = values.Encode()
 	req, err := http.NewRequest("GET", u.String(), nil)
