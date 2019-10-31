@@ -1,7 +1,7 @@
 package main
 
 import (
-	_ "github.com/jossemargt/cms-sao/design"
+	_ "github.com/cms-orbits/cms-sao/design"
 
 	"github.com/goadesign/goa/design"
 	"github.com/goadesign/goa/goagen/codegen"

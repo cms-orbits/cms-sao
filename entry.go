@@ -8,9 +8,9 @@ import (
 	"github.com/goadesign/goa"
 	"github.com/pkg/errors"
 
-	"github.com/jossemargt/cms-sao/app"
-	"github.com/jossemargt/cms-sao/model"
-	"github.com/jossemargt/cms-sao/storage"
+	"github.com/cms-orbits/cms-sao/app"
+	"github.com/cms-orbits/cms-sao/model"
+	"github.com/cms-orbits/cms-sao/storage"
 )
 
 // EntryController implements the Entry resource.

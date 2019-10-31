@@ -8,12 +8,12 @@ import (
 	"testing"
 
 	"github.com/goadesign/goa"
-	goatesthelper "github.com/jossemargt/cms-sao/app/test"
+	goatesthelper "github.com/cms-orbits/cms-sao/app/test"
 	"github.com/pkg/errors"
 
-	"github.com/jossemargt/cms-sao/app"
-	"github.com/jossemargt/cms-sao/model"
-	"github.com/jossemargt/cms-sao/storage"
+	"github.com/cms-orbits/cms-sao/app"
+	"github.com/cms-orbits/cms-sao/model"
+	"github.com/cms-orbits/cms-sao/storage"
 )
 
 func TestDraftController_Get(t *testing.T) {

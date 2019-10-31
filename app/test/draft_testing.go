@@ -13,7 +13,7 @@ import (
 	"fmt"
 	"github.com/goadesign/goa"
 	"github.com/goadesign/goa/goatest"
-	"github.com/jossemargt/cms-sao/app"
+	"github.com/cms-orbits/cms-sao/app"
 	"io"
 	"log"
 	"net/http"

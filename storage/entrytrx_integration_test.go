@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jossemargt/cms-sao/model"
+	"github.com/cms-orbits/cms-sao/model"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
