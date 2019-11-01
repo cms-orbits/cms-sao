@@ -14,8 +14,8 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 
-	"github.com/jossemargt/cms-sao/app"
-	"github.com/jossemargt/cms-sao/storage"
+	"github.com/cms-orbits/cms-sao/app"
+	"github.com/cms-orbits/cms-sao/storage"
 )
 
 func main() {

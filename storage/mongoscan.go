@@ -3,7 +3,7 @@ package storage
 import (
 	"time"
 
-	"github.com/jossemargt/cms-sao/model"
+	"github.com/cms-orbits/cms-sao/model"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 

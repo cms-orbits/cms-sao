@@ -3,7 +3,7 @@ package storage
 import (
 	"fmt"
 
-	"github.com/jossemargt/cms-sao/model"
+	"github.com/cms-orbits/cms-sao/model"
 	"github.com/pkg/errors"
 )
 

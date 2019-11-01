@@ -1,15 +1,12 @@
-FROM golang:1.12 AS build
+FROM golang:1.13 AS build
 
-RUN curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
-WORKDIR /go/src/github.com/jossemargt/cms-sao
+WORKDIR /go/src/github.com/cms-orbits/cms-sao
 COPY . .
-RUN dep ensure \
-    && CGO_ENABLED=0 GOOS=linux go build -v
+RUN CGO_ENABLED=0 GOOS=linux go build -v \
+    && chmod ugo+x cms-sao
 
-FROM alpine:3.9
+FROM scratch
 
-COPY --from=build /go/src/github.com/jossemargt/cms-sao/cms-sao /opt/cms-sao
-RUN chmod ugo+x /opt/cms-sao
-USER nobody
+COPY --from=build /go/src/github.com/cms-orbits/cms-sao/cms-sao /opt/bin/cms-sao
 
-CMD ["/opt/cms-sao"]
+CMD ["/opt/bin/cms-sao"]

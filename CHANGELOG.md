@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.5.2
+
+- No noticeable changes on product (Sao API)
+- Reduce Docker image size (from ~45MB to ~19MB)
+- Migrate to go modules
+
 ## 0.5.1
 
 - Only show relevant resource fields on successful `/submit-entry` and `/submit-draft` actions.

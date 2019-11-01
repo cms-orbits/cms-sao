@@ -4,8 +4,8 @@ import (
 	"fmt"
 
 	"github.com/goadesign/goa"
-	"github.com/jossemargt/cms-sao/app"
-	"github.com/jossemargt/cms-sao/storage"
+	"github.com/cms-orbits/cms-sao/app"
+	"github.com/cms-orbits/cms-sao/storage"
 )
 
 // EntrySubmitTrxController implements the EntrySubmitTrx resource.

@@ -11,10 +11,10 @@ either way is recommend to run this application as the former one.
 
 ### Prerequisites
 
-CMS Sao heavily relies on [CMS](https://github.com/cms-dev/cms) including its database, so
-in order to have this application up and running you will need:
+CMS Sao heavily relies on [CMS](https://github.com/cms-dev/cms) including its
+database, so in order to have this application up and running you will need:
 
-1. CMS 1.3.x or greater (the current Sao version was designed against the last CMS revision in Jan 2018)
+1. CMS 1.3.x or greater (the current Sao version was designed against the last CMS revision in January 2018)
 2. CMS PostreSQL DB schema access (it could be the same credentials that CMS uses but is not recommended)
 3. MongoDB as temporal storage and message queue
 4. Docker engine 17.x or greater
@@ -25,7 +25,7 @@ CMS Sao can be deployed and run as a Docker container, it can be done directly
 using `docker container run` command:
 
 ```shell
-docker container run -p 8000:8000 jossemargt/cms-sao
+docker container run -p 8000:8000 cmsorbits/cms-sao
 ```
 
 Or it can be run using `docker-compose up` with a `docker-compose.yml` file
@@ -40,7 +40,7 @@ order to override the `datasource.host` value, you could start the Docker
 container with the following syntax:
 
 ```shell
-docker container run -p 8000:8000 -e 'SAO_CMS_DATASOURCE_HOST=10.10.37.10' jossemargt/cms-sao
+docker container run -p 8000:8000 -e 'SAO_CMS_DATASOURCE_HOST=10.10.37.10' cmsorbits/cms-sao
 ```
 
 When CMS Sao is executed using `docker-compose` the override values can be provided directly
